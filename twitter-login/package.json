@@ -6,10 +6,10 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "@exponent/vector-icons": "~4.0.0",
-    "exponent": "~14.0.0",
-    "react": "~15.4.0",
-    "react-native": "git+https://github.com/exponentjs/react-native#sdk-14.0.0"
+    "@expo/vector-icons": "^6.2.0",
+    "expo": "^24.0.0",
+    "react": "16.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz"
   },
   "devDependencies": {
     "eslint": "^3.13.1",

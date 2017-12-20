@@ -1,4 +1,4 @@
-import Exponent from 'exponent';
+import Expo from 'expo';
 import React from 'react';
 import {
   StyleSheet,
@@ -53,22 +53,23 @@ class App extends React.Component {
     const username = accessTokenResponse.screen_name;
 
     this.setState({ username });
-    Exponent.WebBrowser.dismissBrowser();
+    Expo.WebBrowser.dismissBrowser();
   }
 
   _loginWithTwitter = async () => {
-    // Call your backend to get the redirect URL, Exponent will take care of redirecting the user.
-    const redirectURLResult = await fetch(redirectURLEndpoint, {
+    console.log(Expo.Constants.linkingUri)
+    // Call your backend to get the redirect URL, Expo will take care of redirecting the user.
+    const redirectURLResult = await fetch(redirectURLEndpoint + `?linkingUri=${Expo.Constants.linkingUri}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     }).then(res => res.json());
     authToken = redirectURLResult.token;
     secretToken = redirectURLResult.secretToken;
-    await Exponent.WebBrowser.openBrowserAsync(redirectURLResult.redirectURL);
+    await Expo.WebBrowser.openBrowserAsync(redirectURLResult.redirectURL);
   };
 
   _presentHackerNews = async () => {
-    await Exponent.WebBrowser.openBrowserAsync('https://news.ycombinator.com');
+    await Expo.WebBrowser.openBrowserAsync('https://news.ycombinator.com');
   }
 
   /**
@@ -86,7 +87,7 @@ class App extends React.Component {
         {this.state.username !== undefined ?
           <Text style={styles.title}>Hi {this.state.username}!</Text> :
           <View>
-            <Text style={styles.title}>Example: Twitter login</Text>
+            <Text style={styles.title}>{Expo.Constants.linkingUri} Example: Twitter login</Text>
             <Button title="Login with Twitter" onPress={this._loginWithTwitter} />
             <Text style={styles.title}> Example: Show WebBrowser </Text>
             <Button title="Show HackerNews" onPress={this._presentHackerNews} />
@@ -111,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-Exponent.registerRootComponent(App);
+Expo.registerRootComponent(App);
